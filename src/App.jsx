@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { FaTrash } from "react-icons/fa";
-
+import { IoMdMail } from "react-icons/io";
+import { FaLocationCrosshairs } from "react-icons/fa6";
+import { BsFillTelephoneFill } from "react-icons/bs";
 const App = () => {
 
   // Basic Info State
@@ -12,7 +14,7 @@ const App = () => {
     field: 'Masters of Business Administration',
     mail: 'johndoe@gmail.com',
     address: 'EI classico 14th street New York',
-    role: 'Buisness Analyst'
+    role: 'Business Analyst'
 
   })
 
@@ -105,10 +107,10 @@ const App = () => {
 
 
   return (
-    <div className='flex flex-wrap  bg-black max-h-auto text-white'>
+    <div className='flex flex-col lg:flex-row w-full bg-black max-h-auto text-white overflow-hidden'>
 
       {/* ───── FORM SIDE ───── */}
-      <form className="flex flex-col gap-4 w-1/4 px-4 bg-gray-900  pt-10 ">
+      <form className="flex flex-col gap-4  px-4 bg-gray-900 py-10 ">
         {/* <h2 className='text-2xl font-bold'>Portfolio Generator 🔥</h2> */}
 
         {/* Photo */}
@@ -270,16 +272,20 @@ const App = () => {
 
       </form>
 
-      
 
       {/* ───── PREVIEW SIDE ───── */}
       
-      <div className=' flex flex-col border-l w-252  border-gray-600 bg-[#0f0a1a] pt-6'>
+      <div className="flex flex-col border-l w-screen border-gray-600 bg-[#0f0a1a]">
         {/* <h2 className='text-2xl font-bold'>Preview 👇</h2> */}
 
-        <div className="hero flex flex-col items-center border-b ">
-          {/* Image Preview */}
 
+        <div
+          className="hero flex flex-col items-center border-b pt-10"
+          style={{
+            background: "radial-gradient(ellipse 80% 60% at 50% 20%, #7c3aed 0%, #4c1d95 40%, #0f0a1a 95%)"
+          }}
+        >
+          {/* Image Preview */}
           {photo && (
             <img
               src={photo}
@@ -287,32 +293,32 @@ const App = () => {
               className='w-32 h-32 rounded-full object-cover ' />
           )}
           <h1 className='text-3xl font-semibold my-4'>{formData.name}</h1>
-          <span className=' px-3 py-2 rounded-lg text-white bg-purple-600'>{formData.role}</span>
+          <span className='px-3 py-2 rounded-lg text-white bg-purple-600/50 border border-purple-400/30'>
+            {formData.role}
+          </span>
 
-          <div className='flex justify-evenly w-full m-5'>
-            <span>{formData.mail}</span>
-            <span>{formData.address}</span>
-            <span className='text-gray-400'>{formData.contact}</span>
-
+          <div className='flex flex-col items-center gap-2 lg:flex-row lg:justify-evenly w-full p-5'>
+            <span className='flex items-center gap-1'> <IoMdMail className='text-purple-500'/> {formData.mail}</span>
+            <span className='flex items-center gap-1'> <FaLocationCrosshairs className='text-purple-500'/> {formData.address}</span>
+            <span className='flex items-center gap-1'> <BsFillTelephoneFill className='text-purple-500'/> {formData.contact}</span>
           </div>
         </div>
 
-        <div className="hero2 flex flex-row py-10">
-          <div className="section1 border-r px-5">
-            <h1 className='text-2xl font-bold'>About me</h1>
-            <p className='text-gray-500 mt-2 max-w-90 tracking-wide leading-tight '>{formData.about}</p>
+        <div className="hero2 flex flex-row flex-wrap  py-10 bg-[#0f0a1a]">
+          <div className="section1 md:border-r  border-gray-700 px-5 pl-5">
+            <h1 className='text-2xl font-bold '>About me</h1>
+            <p className='text-gray-500 mt-2 max-w-90 tracking-wide leading-tight'>{formData.about}</p>
             <h1 className='text-2xl font-bold pt-10'>Education</h1>
-            <h4 className=' pt-4 text-lg'>{formData.institution}</h4>
+            <h4 className='pt-4 text-lg'>{formData.institution}</h4>
             <p className='text-gray-400'>{formData.field}</p>
 
             {/* Experience preview */}
-
             {experience.length > 0 && (
               <div className='mt-4'>
-                <h3 className=' text-2xl font-bold pt-6'>Experience</h3>
+                <h3 className='text-2xl font-bold pt-6'>Experience</h3>
                 {experience.map((experience, index) => (
-                  <div key={index} className=' p-3 mt-2'>
-                    <h4 className=' text-lg'>{experience.company}</h4>
+                  <div key={index} className='p-3 mt-2'>
+                    <h4 className='text-lg'>{experience.company}</h4>
                     <p className='text-gray-500'>{experience.description}</p>
                     <button
                       type='button'
@@ -325,18 +331,24 @@ const App = () => {
               </div>
             )}
           </div>
-          <div className="section2 flex flex-col px-7">
+
+          <div className="section2 max-w-sm  px-5">
 
             {/* Skills Preview */}
-
-
-            <h1 className='text-2xl font-bold '>Skills & Tools</h1>
+            <h1 className='text-2xl font-bold pt-4 md:pt-0'>Skills & Tools</h1>
             {skills.length > 0 && (
               <div className='mt-4'>
                 <h3 className='font-semibold text-lg'>Skills</h3>
                 <div className='flex flex-wrap gap-2 mt-2'>
                   {skills.map((skill, index) => (
-                    <span key={index} className='bg-gray-600 rounded px-3 py-1'>
+                    <span
+                      key={index}
+                      className='rounded px-3 py-1'
+                      style={{
+                        background: "rgba(255,255,255,0.08)",
+                        border: "1px solid rgba(255,255,255,0.12)"
+                      }}
+                    >
                       {skill}
                     </span>
                   ))}
@@ -345,18 +357,17 @@ const App = () => {
             )}
 
             {/* Project Preview */}
-
             {projects.length > 0 && (
               <div className='mt-4'>
                 <h3 className='font-semibold text-xl'>Projects</h3>
                 {projects.map((project, index) => (
-                  <div key={index} className=' p-3 mt-2'>
-                    <h4 className=' text-lg'>{project.title}</h4>
+                  <div key={index} className='p-3 mt-2'>
+                    <h4 className='text-lg'>{project.title}</h4>
                     <p className='text-gray-500 text-lg'>{project.description}</p>
                     <button
                       type='button'
                       onClick={() => removeProject(index)}
-                      className=' text-sm mt-1 text-center cursor-pointer'>
+                      className='text-sm mt-1 text-center cursor-pointer'>
                       <FaTrash color='red' />
                     </button>
                   </div>
@@ -365,10 +376,7 @@ const App = () => {
             )}
 
           </div>
-
         </div>
-
-
       </div>
 
     </div>
